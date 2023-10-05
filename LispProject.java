@@ -11,24 +11,22 @@ import stack.LinkedStack ;
  * 
  * @version 1.0.0 2023-10-03 Initial implementation
  */
-public class LispProject
+public class LispProject<T>
     {
 
-    private static ArrayStack<String> operatorStack = new ArrayStack<>() ;
-    private static LinkedStack<String> valueStack = new LinkedStack<>() ;
+    private static ArrayStack<String> operatorStack ;
+    private static LinkedStack<String> valueStack ;
 
-    /**
-     * use operatorStack and valueStack
-     */
     public LispProject()
         {
+        operatorStack = new ArrayStack<>() ;
+        valueStack = new LinkedStack<>() ;
 
         }
 
 
-    public static void main( String[] args )
+    public T arrayCreation( String s )
         {
-        String s = ( "(+(-6)(* 2 3 4)(/(+3)(*)(-2 3 1)))" ) ;
         for ( int i = 0 ; i < s.length() ; i++ )
             {
             String value = String.valueOf( s.charAt( i ) ) ;
@@ -64,10 +62,21 @@ public class LispProject
                 }
             else
                 {
+                continue ;
 
                 }
 
             }
+
+        return null ;
+
+        }
+
+
+    public static void main( String[] args )
+        {
+        String s = ( "(+(-6)(* 2 3 4)(/(+3)(*)(-2 3 1)))" ) ;
+        System.out.println( "Considering the expression: " + s ) ;
 
         }
 
