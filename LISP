@@ -1,0 +1,53 @@
+package hw2;
+
+import java.util.ArrayList;
+
+import stack.ArrayStack;
+import stack.LinkedStack;
+
+public class LispProject<T> {
+
+    private static ArrayStack<String> operatorStack;
+    private static LinkedStack<String> valueStack;
+
+    public LispProject() {
+        operatorStack = new ArrayStack<>();
+        valueStack = new LinkedStack<>();
+    }
+
+    public T arrayCreation(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            String value = String.valueOf(s.charAt(i));
+
+            if (value.equals("(")) {
+                valueStack.push(value);
+            } else if (value.equals("+") || value.equals("-") || value.equals("*") || value.equals("/")) {
+                operatorStack.push(value);
+            } else if (!value.equals(" ")) {
+                valueStack.push(value);
+            } else if (value.equals(")")) {
+                String popped = valueStack.pop();
+                ArrayList<String> operands = new ArrayList<>();
+                while (!popped.equals("(")) {
+                    operands.add(popped);
+                    popped = valueStack.pop();
+                }
+
+                String operator = operatorStack.pop();
+                // You can perform operations with the operands and operator here if needed.
+            } else {
+                continue;
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        String s = "(+(-6)(* 2 3 4)(/(+3)(*)(-2 3 1)))";
+        System.out.println("Considering the expression: " + s);
+
+        // Create an instance of LispProject and call arrayCreation
+        LispProject<String> lispProject = new LispProject<>();
+        lispProject.arrayCreation(s);
+    }
+}
